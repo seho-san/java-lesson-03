@@ -19,9 +19,9 @@ public class SimpleArray {
             }
         }
         if (isMatched) {
-            System.out.println("정답입니다.");
+            System.out.println("correct.");
         } else {
-            System.out.println("오답입니다.");
+            System.out.println("incorrect.");
         }
     }
 
@@ -34,6 +34,6 @@ public class SimpleArray {
      * * ^2는 제곱의 의미로 사용되었습니다.
      */
     private static void fillArray(int index) {
-        throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+        arrays[index] = (int) Math.pow((index * 7 / 5),2);
     }
 }

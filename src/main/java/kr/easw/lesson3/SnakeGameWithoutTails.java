@@ -20,7 +20,7 @@ public class SnakeGameWithoutTails {
     private static SnakeLocation location = new SnakeLocation(0, 0);
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); //입력
         while (true) {
             printBoard();
             System.out.print("[우측 (r) | 좌측 (l) | 위 (u) | 아래 (d) | 종료 (0) ] : ");
@@ -49,7 +49,34 @@ public class SnakeGameWithoutTails {
      * 만약 사용자의 입력이 종료(0)였다면, false값을 반환하여 게임을 종료해야 합니다.
      */
     private static boolean nextDirection(String keyword) {
-        throw new RuntimeException("이 코드 라인을 지우고, 이곳에서 작성하십시오.");
+        int x = location.getX();
+        int y = location.getY();
+
+        switch (keyword){
+            case "r":
+                y = (y + 1 < BOARD_SIZE) ? y + 1 : y; //조건문?참 일경우:거짓일 경우
+                break;
+            case "l":
+                y = (y - 1 >= 0) ? y - 1 : y;
+                break;
+            case "u":
+                x = (x + 1 < BOARD_SIZE) ? x + 1 : x;
+                break;
+            case "d":
+                x = (x - 1 >= 0) ? x - 1 : x;
+                break;
+            case "0":
+                return false;
+            default:
+                System.out.println("잘못된 입력");
+                return true;
+        }
+        if(board[x][y]==2){
+            score++;
+            board[x][y]=0;
+        }
+        location = new SnakeLocation(x, y);
+        return true;
     }
 
     private static void printBoard() {
@@ -70,7 +97,7 @@ public class SnakeGameWithoutTails {
                         System.out.print("◼");
                         break;
                     case 2:
-                        System.out.println("* ");
+                        System.out.print("* ");
                         break;
                 }
             }
@@ -84,12 +111,12 @@ public class SnakeGameWithoutTails {
         for (int i = 0; i < toPlace; i++) {
             int retry = 0;
             while (retry < 5) {
-                SnakeLocation locate = new SnakeLocation(RANDOM.nextInt() * BOARD_SIZE, RANDOM.nextInt() * BOARD_SIZE);
+                SnakeLocation locate = new SnakeLocation((int) (RANDOM.nextDouble() * (BOARD_SIZE-1)), (int) (RANDOM.nextDouble() * (BOARD_SIZE-1)));
                 if (board[locate.getX()][locate.getY()] != 0) {
                     retry++;
                     continue;
                 }
-                board[locate.getX()][locate.getY()] = 2;
+                board[locate.getX()][locate.getY()] = 2; //*에 아이템 있음
                 break;
             }
         }
